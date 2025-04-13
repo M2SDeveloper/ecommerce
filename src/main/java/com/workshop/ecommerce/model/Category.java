@@ -10,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -30,13 +32,24 @@ public class Category {
     @NotBlank(message = "category name is required")
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade=CascadeType.ALL, orphanRemoval = true)
-    private List<Product> products= new ArrayList<>();
+    // @OneToMany(mappedBy = "category", cascade=CascadeType.ALL, orphanRemoval = true)
+    // private List<Product> products= new ArrayList<>();
 
-    private String discription;
+    private String description;
 
     private LocalDateTime createdAt;
 
-    private LocalDateTime updateddAt;
+    private LocalDateTime updatedAt;
+
+     @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+    
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
     
 }

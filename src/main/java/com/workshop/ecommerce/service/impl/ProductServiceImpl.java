@@ -17,6 +17,7 @@ public class ProductServiceImpl implements ProductService{
      private final ProductRepository productRepository;  
      public ProductDTO createProduct(ProductDTO product){
 
+        try {
         Product productEntity= mapToEntity(product);
 
         Category category= new Category();
@@ -27,6 +28,12 @@ public class ProductServiceImpl implements ProductService{
         Product productDB= productRepository.save(productEntity);
 
         return mapToDTO(productDB);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+         return null;
+        
      }
 
      private ProductDTO mapToDTO(Product productDB) {

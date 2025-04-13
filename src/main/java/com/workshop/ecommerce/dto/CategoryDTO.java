@@ -6,7 +6,6 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
-
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDTO {
-
+    
     private Long id;
 
     @NotBlank(message = "category name is required")
@@ -25,10 +24,9 @@ public class CategoryDTO {
     @OneToMany(mappedBy = "category", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<ProductDTO> products= new ArrayList<>();
 
-    private String discription;
+    private String description;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updateddAt;
-    
 }
